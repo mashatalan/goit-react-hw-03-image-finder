@@ -1,4 +1,4 @@
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Component } from 'react';
@@ -20,7 +20,10 @@ export default class Searchbar extends Component {
     const { query } = this.state;
 
     if (!query.trim()) {
-      return toast('🦄 Please, enter some data!', {className: 'toast-message', autoClose: 2000, });
+      return toast(
+        '🦄 Please, enter some data!',
+        { className: 'toast-message', autoClose: 2000 }
+      );
     }
 
     onSubmit(query);
