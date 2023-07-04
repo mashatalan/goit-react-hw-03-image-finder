@@ -25,11 +25,15 @@ export default class App extends Component {
   };
 
   imagesLimit = 12;
+  async componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
+      await this.loadImages(this.state.query);
+    }
+  }
 
-  loadImages = async (query, page) => {
-
+  loadImages = async (query) => {
     try {
-      const { hits, total } = await fetchAPI(query, page);
+      const { hits, total } = await fetchAPI(query, this.state.page);
       if (hits.length === 0) {
         return toast(`🦄 Sorry, but there is no data for '${query}'`, {
           className: 'toast-message',
@@ -54,10 +58,10 @@ export default class App extends Component {
     }
   };
 
-  getResult = async (query, page) => {
+  getResult = (query) => {
     this.setState({
       query,
-      page,
+      page: 1,
       images: [],
       imagesOnPage: 0,
       totalImages: 0,
@@ -67,12 +71,10 @@ export default class App extends Component {
       showModal: false,
       error: null,
     });
-    await this.loadImages(query, page);
   };
 
-  onLoadMore = async () => {
-    const { query, page } = this.state;
-    await this.loadImages(query, page + 1 );
+  onLoadMore = () => {
+    this.setState(({ page }) => ({ page: page + 1 }));
   };
 
   onToggleModal = () => {
