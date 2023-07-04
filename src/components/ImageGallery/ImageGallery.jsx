@@ -5,7 +5,7 @@ import { List } from './ImageGallery.styled';
 export default function ImageGallery({ images, openModal }) {
   return (
     <List>
-      {images.map(({ tag, smallImage, largeImage }) => (
+      {images.map(({ tags: tag, webformatURL: smallImage, largeImageURL: largeImage }) => (
         <ImageGalleryItem
           key={smallImage}
           tag={tag}

@@ -39,16 +39,10 @@ export default class App extends Component {
           className: 'toast-message',
         });
       }
-      const array = hits.map(hit => ({
-        id: hit.id,
-        tag: hit.tags,
-        smallImage: hit.webformatURL,
-        largeImage: hit.largeImageURL,
-      }));
 
       this.setState(prevState => ({
-        images: [...prevState.images, ...array],
-        imagesOnPage: prevState.imagesOnPage + array.length,
+        images: [...prevState.images, ...hits],
+        imagesOnPage: prevState.imagesOnPage + hits.length,
         totalImages: total,
       }));
     } catch (error) {
